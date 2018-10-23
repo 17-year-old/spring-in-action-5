@@ -4,17 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
     @GetMapping
-    public String showDesignForm(Model model){
+    public String showDesignForm(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP),
@@ -29,12 +31,20 @@ public class DesignTacoController {
         );
 
         Ingredient.Type[] types = Ingredient.Type.values();
-//        for (Ingredient.Type type : types) {
-//            model.addAttribute(type.toString().toLowerCase(),
-//                    filterByType(ingredients, type));
-//        }
-//        model.addAttribute("design", new Taco());
+        for (Ingredient.Type type : types) {
+            model.addAttribute(type.toString().toLowerCase(),
+                    ingredients.stream().filter(n -> n.getType().equals(type)).collect((Collectors.toList())));
+        }
+        model.addAttribute("design", new Taco());
         return "design";
+    }
+
+    @PostMapping
+    public String processDesign(Taco design) {
+        // Save the taco design...
+        // We'll do this in chapter 3
+        log.info("Processing design: " + design);
+        return "redirect:/orders/current";
     }
 
 }
