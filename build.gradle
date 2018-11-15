@@ -29,5 +29,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.1.0.RELEASE'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.2'
 }
